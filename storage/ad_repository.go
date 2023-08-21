@@ -7,6 +7,7 @@ import (
 
 	"github.com/mammenj/mandm/models"
 	"gorm.io/driver/sqlite"
+
 	//"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
@@ -54,7 +55,7 @@ func (as *AdSqlliteStore) GetSection(section string, offset int) ([]models.Ad, e
 	var ads []models.Ad
 	log.Println("Get Ads section ", section)
 	// db.Limit(10).Offset(5).Find(&users)
-	result := as.DB.Limit(10).Offset(offset).Where("section = ?", section).Find(&ads)
+	result := as.DB.Limit(100).Offset(offset).Where("section = ?", section).Find(&ads)
 
 	if result.Error != nil {
 		return nil, result.Error

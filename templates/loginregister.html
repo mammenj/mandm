@@ -25,7 +25,8 @@
                         ID: {{.User.ID }}, Name: {{.User.Name}}, Role: {{.User.Role}}
                     </div>
                     <div id="logout" class="btn-info mt-1">
-                        <button hx-post="/logout" type="button" hx-target="#logoutresult" class="btn btn-primary">Logout</button>
+                        <button hx-post="/logout" type="button" hx-target="#logoutresult"
+                            class="btn btn-primary">Logout</button>
                     </div>
                     <div class="col-md-9 bg-info-subtle" id="logoutresult"></div>
                 </div>
@@ -41,7 +42,7 @@
                             <div class="col-sm-4 form-group">
                                 <label for="education" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="Password"
-                                    placeholder="Enter a password">
+                                    placeholder="Enter a password" required>
                             </div>
                             <div class="col-sm-12 form-group mb-2 my-2">
                                 <button class="btn btn-primary float-right">Submit</button>
@@ -53,7 +54,7 @@
                 {{end}}
             </div>
             <div class="container my-3 bg-dark-subtle">
-                <form hx-post="/users" hx-target="#registerresult" hx-swap="innerHTML">
+                <form hx-post="/users" hx-target="#registerresult" hx-swap="innerHTML" class="was-validated">
                     <div class="row g-3">
                         <div>
                             <h2 class="text-center text-bg-dark">Register As Bride, Groom or Third Party Agents</h2>
@@ -70,22 +71,26 @@
                         <div class="col-sm-6 form-group">
                             <label for="name-full" class="form-label">Full Name</label>
                             <input type="text" class="form-control" name="Name" id="name-full"
-                                placeholder="Enter your full name." required>
+                                placeholder="Enter your full name." minlength="3" maxlength="50" required>
+                            <div class="invalid-feedback">Please enter your full name.</div>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="Email" id="email" placeholder="Enter your email."
-                                required>
+                            <input type="email" class="form-control" name="Email" id="email"
+                                placeholder="Enter your email." required>
+                            <div class="invalid-feedback">Please enter your email.</div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label for="education" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="Password"
-                                placeholder="Enter a password">
+                            <label for="password1" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password1" name="Password"
+                                placeholder="Enter a password" minlength="3" maxlength="50">
+                            <div class="invalid-feedback">Please enter a password. </div>
                         </div>
                         <div class="col-sm-4 form-group">
-                            <label for="education" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="Password"
-                                placeholder="Repeat your password">
+                            <label for="password2" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password2" name="Password2"
+                                placeholder="Repeat your password" minlength="3" maxlength="50">
+                                <div class="invalid-feedback">Please enter your password again.</div>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="role" class="form-label">Register As</label>
@@ -96,7 +101,7 @@
                             </select>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="tel" class="form-label">Phone</label>
+                            <label for="message" class="form-label">Phone</label>
                             <input type="tel" name="Message" class="form-control" id="message"
                                 placeholder="Enter Your Contact Number.">
                         </div>
@@ -115,7 +120,7 @@
                 </div>
             </div>
         </div>
- 
+
     </main>
     <div class="container">
         {{ template "footerHTML" . }}

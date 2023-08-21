@@ -5,8 +5,10 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/casbin/casbin"
 	"github.com/gin-gonic/gin"
 	"github.com/mammenj/mandm/models"
+	"github.com/mammenj/mandm/security"
 	"github.com/mammenj/mandm/storage"
 )
 
@@ -82,18 +84,29 @@ func (ah *AdHandler) CreateAd(c *gin.Context) {
 	for key, value := range c.Request.PostForm {
 		fmt.Println(key, value)
 	}
+	e := casbin.NewEnforcer("authz_model.conf", "authz_policy.csv", true)
+
+	auth := security.NewJwtAuth(e)
+	user := auth.GetLoggedInUser(c)
+	log.Println("Before In POST AD hanlder user IS :", user)
+	if user == nil {
+		c.JSON(http.StatusOK, "You must be logged in to post an Ad")
+		return
+	}
+	log.Println("In POST AD hanlder user IS :", user)
 	var input models.Ad
 	if err := c.Bind(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	input.UserID = user.ID
 	log.Println("In POST AD hanlder INPUT IS :", input)
 
 	ID, err := ah.store.Create(&input)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusOK,  err.Error())
 		return
 	}
-
+	c.JSON(http.StatusOK, "Ad created with ID:: "+ ID)
 	fmt.Println("AD CREATED ID: ", ID)
 }
