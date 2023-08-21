@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minna Minni ©2023 - About Us</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="/static/htmx.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+    {{ template "headerHTML" . }}
+    <main class="my-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="/static/images/molay3.jpg" alt="" class="img-fluid" />
+                </div>
+                <div class="col-md-9">
+                    <h2 class="mt-2">About Us</h2>
+                    {{if ne .User.ID 0}}
+                    <div class="bg-info-subtle col-md-3 px-2 my-1 py-1">
+                        Welcome {{.User.Name}} !!
+
+                    </div>
+                    {{end}}
+                    <p class="mt-3">
+                        We are digital nomads, work mostly from home. We work in Gods Own Country! Please contact us for any digital development.
+                    </p>
+                    <a href="/ads.html" class="btn btn-success"> Place your Ads now!!</a>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col">
+                    <div class="card-group">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">My Hangout</h5>
+                                <p class="card-text">
+                                    This is the local joint where all our people get fish :)
+                                </p>
+                                <div>
+                                    <img src="/static/images/back4.jpg" class="img-fluid" alt="Girl in a jacket">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">View from my room</h5>
+                                <p class="card-text">
+                                    View from where I work out of.
+                                </p>
+                                <div>
+                                    <img src="/static/images/back3.jpg" class="img-fluid" alt="Girl in a jacket">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col">
+                    <div class="card-group">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Front View</h5>
+                                <p class="card-text">
+                                    Another view from my work area.
+
+                                </p>
+                                <div>
+                                    <img src="/static/images/back2.jpg" class="img-fluid" alt="Girl in a jacket">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">One more..</h5>
+                                <p class="card-text">
+                                    One more view..
+                                </p>
+                                <div>
+                                    <img src="/static/images/back1.jpg" class="img-fluid" alt="Girl in a jacket">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <div class="container">
+        {{ template "footerHTML" . }}
+    </div>
+    <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
+</body>
+
+</html>

@@ -55,6 +55,9 @@ var tncTemplate *template.Template = template.Must(template.ParseFiles(
 var logoutTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/user.html"))
 
+var aboutUsTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/aboutus.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+
 type pageData struct {
 	User  models.User
 	AdMap map[string][]models.Ad
@@ -104,6 +107,15 @@ func main() {
 			page = pageData{*user, nil}
 		}
 		contactTemplate.Execute(c.Writer, page)
+	})
+
+	r.GET("/aboutus.html", func(c *gin.Context) {
+		var page pageData
+		user := auth.GetLoggedInUser(c)
+		if user != nil {
+			page = pageData{*user, nil}
+		}
+		aboutUsTemplate.Execute(c.Writer, page)
 	})
 
 	r.GET("/grooms.html", func(c *gin.Context) {
