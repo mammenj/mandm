@@ -12,6 +12,7 @@ p, anonymous, /*, *
 p, anonymous, /contact*, *
 p, anonymous, /tnc*, *
 p, anonymous, /menu*, *
+p, anonymous, /about*, *
 
 p, user, /login*, *
 p, user, /user*, *
@@ -26,6 +27,7 @@ p, user, /contact*, *
 p, user, /tnc*, *
 p, user, /menu*, *
 p, user, /logout*, *
+p, user, /about*, *
 
 p, broker, /login*, *
 p, broker, /user*, *
@@ -37,4 +39,6 @@ p, broker, /, *
 p, broker, /contact*, *
 p, broker, /tnc*, *
 p, broker, /menu*, *
-
+p, broker, /brides*, *
+p, broker, /grooms*, *
+p, broker, /about*, *

@@ -109,8 +109,10 @@ func Login(c *gin.Context) {
 	//c.JSON(200, gin.H{"token": tokenString})
 	//c.String(http.StatusOK, tokenString, nil)
 	log.Println("generated token:: ", tokenString)
-	value := c.GetHeader("Authorization")
-	log.Println("GetHeader in Login controller :: ", value)
+	//value := c.GetHeader("Authorization")
+	//log.Println("GetHeader in Login controller :: ", value)
+	c.Header("HX-Location", "/ads.html")
+	//c.String(http.StatusOK, "Redirecting to Home...")
 	c.String(http.StatusOK, "Loggedin successfully", nil)
 	//tmpl.Execute(c.Writer, "successfully logged in, redirecting...")
 }

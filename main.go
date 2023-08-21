@@ -206,15 +206,17 @@ func main() {
 	r.POST("/logout", func(c *gin.Context) {
 
 		session := sessions.Default(c)
-		mypage := pageData{models.User{}, nil}
-		log.Println(mypage)
+		//mypage := pageData{models.User{}, nil}
+		//log.Println(mypage)
 		session.Delete("jwt")
 		session.Clear()
 		session.Options(sessions.Options{Path: "/", MaxAge: -1}) // this sets the cookie with a MaxAge of 0
 		session.Save()
 		//c.Redirect(http.StatusTemporaryRedirect, "/")
 		//c.Redirect(http.StatusFound, "/")
-		logoutTemplate.Execute(c.Writer, "Logged Out")
+		c.Header("HX-Location","/")
+		c.String(http.StatusOK, "Redirecting to Home...")
+		//logoutTemplate.Execute(c.Writer, "Logged Out")
 
 	})
 
