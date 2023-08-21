@@ -3,11 +3,7 @@
 
 ### This is all the files for deployment
 ```
-cp mandm ~/Documents/mandm/
-cp matri.db ~/Documents/mandm/
-cp .env ~/Documents/mandm/
-cp authz_model.conf ~/Documents/mandm/
-cp authz_policy.csv ~/Documents/mandm/
+cp favicon.ico authz_policy.csv authz_model.conf matri.db mandm .env ~/Documents/mandm/
 cp -R templates ~/Documents/mandm
 cp -R static ~/Documents/mandm
 ```
