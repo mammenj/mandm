@@ -27,7 +27,7 @@
                     </div>
                     {{end}}
                     <p class="mt-3">
-                        Best place to find your match, no hassle of membership, pay only once!
+                        Best place to find your match, no hassle of membership or payments to be made.
                         Place your ad and wait for the calls to come in!
                     </p>
                 </div>
@@ -54,19 +54,20 @@
                             <input type="email" class="form-control" name="Email" id="email"
                                 placeholder="Enter your email." required>
                         </div>
+                            <legend>Ad details</legend>
                         <div class="col-sm-12 form-group">
                             <label for="ad-descripion" class="form-label">Ad Description</label>
                             <textarea class="form-control" id="ad-descripion" rows="3"  name="Description"></textarea>
                         </div>
 
                         <div class="col-sm-4 form-group">
-                            <label for="State" class="form-label">Age</label>
+                            <label for="age" class="form-label">Age</label>
                             <input type="number" class="form-control" name="Age" id="age" placeholder="Enter your age."
                                 required>
                         </div>
 
                         <div class="col-sm-4 form-group">
-                            <label for="State" class="form-label">Height</label>
+                            <label for="height" class="form-label">Height</label>
                             <input type="number" class="form-control" name="Height" id="height" placeholder="Enter your height in centimeters"
                                 required>
                         </div>
@@ -77,12 +78,15 @@
                                 <option value="Christian">Christian</option>
                                 <option value="Hindu">Hindu</option>
                                 <option value="Muslim">Muslim</option>
+                                <option value="Sikh">Sikh</option>
+                                <option value="Jain">Jain</option>
+                                <option value="Budhist">Budhist</option>
                                 <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="col-sm-2 form-group">
-                            <label for="Cast" class="form-label">Cast/Denomination</label>
-                            <input type="text" class="form-control" name="Cast" id="cast-1"
+                            <label for="cast" class="form-label">Cast/Denomination</label>
+                            <input type="text" class="form-control" name="Cast" id="cast"
                                 placeholder="Add your caste or denomination like Catholic for Christian" required>
                         </div>
                         <div class="col-sm-6 form-group">
@@ -103,7 +107,7 @@
                             </select>
                         </div>
                         <div class="col-sm-2 form-group">
-                            <label for="cod" class="form-label">Select Ad Option</label>
+                            <label for="Section" class="form-label">Select Ad Option</label>
                             <select class="form-control browser-default custom-select" name="Section">
                                 <option value="Groom Wanted" selected>Groom Wanted
                                 </option>
@@ -113,12 +117,7 @@
                         <div class="col-sm-4 form-group">
                             <label for="tel" class="form-label">Phone</label>
                             <input type="tel" name="Phone1" class="form-control" id="tel"
-                                placeholder="Enter Your Contact Number." required>
-                        </div>
-                        <div class="col-sm-4 form-group">
-                            <label for="State" class="form-label">UserID</label>
-                            <input type="number" class="form-control" name="UserID" id="height" placeholder="Enter your UserID"
-                                required>
+                                placeholder="Enter Your Contact Number, not required">
                         </div>
                         <div class="col-sm-12">
                             <input type="checkbox" class="form-check d-inline" name="terms" id="chb" required><label for="chb"
