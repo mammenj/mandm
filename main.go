@@ -238,6 +238,22 @@ func main() {
 	r.PATCH("/ads", adHandler.UpdateAd)
 	r.DELETE("/ads/:id", adHandler.DeleteAd)
 	r.GET("/ads/:id", adHandler.GetAd)
+	r.POST("/messages", func(c *gin.Context) {
+		msgStore := storage.NewSqliteMessageStore()
+		var input models.Messages
+		if err := c.Bind(&input); err != nil {
+			c.String(http.StatusOK, err.Error())
+			return
+		}
+		ID, err := msgStore.Create(&input)
+		if err != nil {
+			c.String(http.StatusOK, err.Error(), nil)
+			return
+		}
+
+		log.Println("Messages CREATED ID: ", ID)
+		c.String(http.StatusOK, "Messages sent, your feedback ID :: "+ID, "Keep the ID for reference")
+	})
 
 	r.Run()
 }
