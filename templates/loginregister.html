@@ -19,8 +19,11 @@
                     <img src="/static/images/placeads.jpg" alt="" class="img-fluid" />
                 </div>
                 {{if ne .User.ID 0}}
+
                 <div class="col-md-9">
-                    <h3 class="mt-2">User Login / Registration</h3>
+                    <div>
+                        <h3 class=" text-center text-bg-dark">Logged User</h3>
+                    </div>
                     <div class="col-md-9 bg-info-subtle" id="test">
                         ID: {{.User.ID }}, Name: {{.User.Name}}, Role: {{.User.Role}}
                     </div>
@@ -34,6 +37,9 @@
                 <div class="col-md-9">
                     <form hx-post="/login" hx-target="#loginresult" hx-swap="innerHTML">
                         <div class="row g-3">
+                            <div>
+                                <h3 class=" text-center text-bg-dark">Login</h3>
+                            </div>
                             <div class="col-sm-6 form-group">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="Email" id="email"
@@ -44,7 +50,7 @@
                                 <input type="password" class="form-control" id="password" name="Password"
                                     placeholder="Enter a password" required>
                             </div>
-                            <div class="col-sm-12 form-group mb-2 my-2">
+                            <div class="col-sm-4 form-group ">
                                 <button class="btn btn-primary float-right">Submit</button>
                             </div>
                         </div>
@@ -90,7 +96,7 @@
                             <label for="password2" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password2" name="Password2"
                                 placeholder="Repeat your password" minlength="3" maxlength="50">
-                                <div class="invalid-feedback">Please enter your password again.</div>
+                            <div class="invalid-feedback">Please enter your password again.</div>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="role" class="form-label">Register As</label>
