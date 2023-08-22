@@ -58,6 +58,9 @@ var logoutTemplate *template.Template = template.Must(template.ParseFiles(
 var aboutUsTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/aboutus.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
+var myAdsTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/myads.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+
 type pageData struct {
 	User  models.User
 	AdMap map[string][]models.Ad
@@ -107,6 +110,15 @@ func main() {
 			page = pageData{*user, nil}
 		}
 		contactTemplate.Execute(c.Writer, page)
+	})
+
+	r.GET("/myads.html", func(c *gin.Context) {
+		var page pageData
+		user := auth.GetLoggedInUser(c)
+		if user != nil {
+			page = pageData{*user, nil}
+		}
+		myAdsTemplate.Execute(c.Writer, page)
 	})
 
 	r.GET("/aboutus.html", func(c *gin.Context) {
@@ -214,7 +226,7 @@ func main() {
 		session.Save()
 		//c.Redirect(http.StatusTemporaryRedirect, "/")
 		//c.Redirect(http.StatusFound, "/")
-		c.Header("HX-Location","/")
+		c.Header("HX-Location", "/")
 		c.String(http.StatusOK, "Redirecting to Home...")
 		//logoutTemplate.Execute(c.Writer, "Logged Out")
 

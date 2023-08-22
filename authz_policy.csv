@@ -28,6 +28,7 @@ p, user, /tnc*, *
 p, user, /menu*, *
 p, user, /logout*, *
 p, user, /about*, *
+p, user, /myad*, *
 
 p, broker, /login*, *
 p, broker, /user*, *
@@ -42,3 +43,4 @@ p, broker, /menu*, *
 p, broker, /brides*, *
 p, broker, /grooms*, *
 p, broker, /about*, *
+p, broker, /myad*, *
