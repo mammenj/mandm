@@ -38,6 +38,7 @@
 
 
             <!-- <div class="col-sm"> -->
+            {{if ne .User.Name ""}}
             <div class="row">
                 <div class="col-md-9">
                     <div class="card-deck">
@@ -66,7 +67,7 @@
                     </div>
                 </div>
             </div>
-
+            {{end}}
         </div>
     </main>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -90,7 +91,7 @@
         </div>
     </div>
     <div class="container">
-    {{ template "footerHTML" . }}
+        {{ template "footerHTML" . }}
     </div>
     <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
 </body>
