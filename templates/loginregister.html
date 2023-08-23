@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-sm-4 form-group">
                                 <label for="education" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="Password"
+                                <input type="password" class="form-control" id="password1" name="Password"
                                     placeholder="Enter a password" required>
                                 <div class="invalid-feedback">Please enter password.</div>
                             </div>
@@ -89,13 +89,14 @@
                             <div class="invalid-feedback">Please enter your email.</div>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label for="password1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password1" name="Password"
-                                placeholder="Enter a password" minlength="3" maxlength="50">
+                            <label for="password2" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password2" name="Password" value=""
+                                required>
                             <div class="invalid-feedback">Please enter a password. </div>
 
-                            <input type="checkbox" class="form-check" onclick="showPassword()">Show Password</input>
-
+                            <input type="checkbox" class="form-check-inline" hx-on:click="document.querySelector('input[id=password2]').setAttribute('type',
+                                document.querySelector('input[id=password2]').getAttribute('type')=='password' ?
+                                'text' : 'password')">Show Password</input>
                         </div>
 
                         <div class="col-sm-9 form-group">
@@ -132,16 +133,6 @@
         {{ template "footerHTML" . }}
     </div>
     <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
-    <script>
-        function showPassword() {
-            var x = document.getElementById("password1");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
 </body>
 
 </html>
