@@ -44,3 +44,4 @@ p, broker, /brides*, *
 p, broker, /grooms*, *
 p, broker, /about*, *
 p, broker, /myad*, *
+p, broker, /logout*, *
