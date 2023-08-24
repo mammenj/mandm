@@ -31,18 +31,19 @@
                 <div class="row justify-content-lg-start my-2">
                     <div class="col-md-9">
                         <div class="col-md-9 bg-info-subtle" id="sentresult">
-                           
+
                         </div>
                         <form hx-post="/messages" hx-target="#sentresult" class="was-validated">
                             <div class="my-2">
                                 <label for="email" class="form-label">Email:</label>
-                                <input name="Email" type="email" id="email" placeholder="my@email.com" class="form-control"
-                                    required />
+                                <input name="Email" type="email" id="email" placeholder="my@email.com"
+                                    class="form-control" required />
                                 <div class="invalid-feedback">Please enter your email.</div>
                             </div>
                             <div class="my-2">
                                 <label for="name" class="form-label">Name:</label>
-                                <input type="text" name="Name" id="name" placeholder="e.g. Dawid" class="form-control" required />
+                                <input type="text" name="Name" id="name" placeholder="e.g. Dawid" class="form-control"
+                                    required />
                                 <div class="invalid-feedback">Please enter your full name.</div>
                             </div>
                             <label for="subject" class="form=label">Subject</label>
@@ -61,7 +62,8 @@
                             </div>
 
                             <div class="text-center my-2">
-                                <button type="submit" class="btn btn-primary">Send!</button>
+                                <button type="submit" class="btn btn-primary" hx-indicator="#loading2">Send!</button>
+                                <img id="loading2" class="htmx-indicator" src="/static/images/load.gif" />
                             </div>
                         </form>
                     </div>
