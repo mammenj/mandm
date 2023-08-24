@@ -94,8 +94,8 @@
                         <div class="col-sm-4 form-group">
                             <label for="Religion" class="form-label">Religion</label>
                             <select class="form-control custom-select browser-default" name="Religiion">
+                                    <option value="Hindu">Hindu</option>
                                 <option value="Christian">Christian</option>
-                                <option value="Hindu">Hindu</option>
                                 <option value="Muslim">Muslim</option>
                                 <option value="Sikh">Sikh</option>
                                 <option value="Jain">Jain</option>
@@ -105,15 +105,15 @@
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="cast" class="form-label">Cast/Denomination</label>
-                            <input type="text" class="form-control" name="Cast" id="cast" minlength="3" maxlength="50"
-                                placeholder="Add your caste or denomination like Catholic for Christian" required>
+                            <input type="text" class="form-control" name="Cast" id="cast" minlength="3" maxlength="150"
+                                placeholder="Add cast related info, like Brahmin or Catholic or other caste details" required>
                             <div class="invalid-feedback">Please enter your cast or other related information.</div>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label for="education" class="form-label">Education</label>
-                            <input type="text" class="form-control" id="education" name="Education" minlength="3" maxlength="50"
-                                placeholder="Enter your education">
-                            <div class="invalid-feedback">Please enter your highest education.</div>
+                            <input type="text" class="form-control" id="education" name="Education" minlength="3" maxlength="150"
+                                placeholder="Enter your education" required>
+                            <div class="invalid-feedback">Please enter your highest education</div>
                         </div>
 
                         <div class="col-sm-6 form-group">
