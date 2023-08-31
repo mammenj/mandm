@@ -131,7 +131,7 @@ func loginUser(c *gin.Context) (*models.User, error) {
 	password := user.Password
 
 	store := storage.NewSqliteUserStore()
-	if err := store.DB.Where("email = ?", username).First(&user).Error; err != nil {
+	if err := store.DB.Where("email = ? AND status = ?", username, "active").First(&user).Error; err != nil {
 		log.Println("Failed to GetUser in db")
 		//c.AbortWithStatus(http.StatusNotFound)
 		return nil, err

@@ -27,17 +27,13 @@
                     </div>
                     {{end}}
                     <p class="mt-3">
-                        Best place to find your match, no hassle of membership, pay only once!
-                        Place your ad and wait for the calls to come in!
+                        Best place to find your match, no hassle of membership, payment!
+                        Place your ad and wait for the responses to come in!
                     </p>
                     <a href="/ads.html" class="btn btn-success"> Place your Ads now!!</a>
                 </div>
             </div>
 
-            <!-- <div class="list-group "> -->
-
-
-            <!-- <div class="col-sm"> -->
             {{if ne .User.Name ""}}
             <div class="row">
                 <div class="col-md-9">
@@ -54,7 +50,7 @@
                                     <h5 class="mb-0">{{.Section}} - {{.Religiion}}, {{.Cast}} </h5>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#adModal">
-                                        View details
+                                        View more...
                                     </button>
                                 </div>
 
@@ -75,7 +71,7 @@
         </div>
     </main>
 
-    <div class="modal fade" id="adModal" tabindex="-1" aria-labelledby="adModalLabel" aria-hidden="true">
+    <div class="modal fade" id="adModal" tabindex="-1" aria-labelledby="adModalLabel" aria-hidden="true">2
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,31 +81,31 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                          <div class="col-md-4">.col-md-4</div>
-                          <div class="col-md-4 ms-auto">.col-md-4 .ms-auto</div>
+                            <div class="col-md-4">.col-md-4</div>
+                            <div class="col-md-4 ms-auto">Ad :: {{.Description}}</div>
                         </div>
                         <div class="row">
-                          <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
-                          <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
+                            <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
+                            <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
                         </div>
                         <div class="row">
-                          <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
+                            <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
                         </div>
                         <div class="row">
-                          <div class="col-sm-9">
-                            Level 1: .col-sm-9
-                            <div class="row">
-                              <div class="col-8 col-sm-6">
-                                Level 2: .col-8 .col-sm-6
-                              </div>
-                              <div class="col-4 col-sm-6">
-                                Level 2: .col-4 .col-sm-6
-                              </div>
+                            <div class="col-sm-9">
+                                Level 1: .col-sm-9
+                                <div class="row">
+                                    <div class="col-8 col-sm-6">
+                                        Level 2: .col-8 .col-sm-6
+                                    </div>
+                                    <div class="col-4 col-sm-6">
+                                        Level 2: .col-4 .col-sm-6
+                                    </div>
+                                </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
-                    
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

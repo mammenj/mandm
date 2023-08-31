@@ -61,6 +61,9 @@ var aboutUsTemplate *template.Template = template.Must(template.ParseFiles(
 var myAdsTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/myads.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
+var activateTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/activate.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+
 type pageData struct {
 	User  models.User
 	AdMap map[string][]models.Ad
@@ -110,6 +113,15 @@ func main() {
 			page = pageData{*user, nil}
 		}
 		contactTemplate.Execute(c.Writer, page)
+	})
+
+	r.GET("/activate.html", func(c *gin.Context) {
+		var page pageData
+		user := auth.GetLoggedInUser(c)
+		if user != nil {
+			page = pageData{*user, nil}
+		}
+		activateTemplate.Execute(c.Writer, page)
 	})
 
 	r.GET("/myads.html", func(c *gin.Context) {
@@ -215,6 +227,7 @@ func main() {
 	r.DELETE("/users/:id", userHandler.DeleteUser)
 	r.GET("/users/:id", userHandler.GetUser)
 	r.POST("/login", security.Login)
+	r.PATCH("/users/activate", userHandler.ActivateUser)
 	r.POST("/logout", func(c *gin.Context) {
 
 		session := sessions.Default(c)

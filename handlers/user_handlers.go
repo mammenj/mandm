@@ -53,6 +53,40 @@ func (uh *UserHandler) UpdateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, &user)
 }
 
+func (uh *UserHandler) ActivateUser(c *gin.Context) {
+	log.Println("IN ActivateUser  handler")
+	var user models.User
+	if err := c.Bind(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	log.Println("IN ActivateUser  handler ", &user)
+	// get the user and compare the UUID
+
+	if err := uh.store.DB.Where("email = ? AND uuid = ?", user.Email, user.UUID).First(&user).Error; err != nil {
+		log.Println("Failed to GetUser in db")
+		//c.AbortWithStatus(http.StatusNotFound)
+		//return nil, err
+		c.String(http.StatusOK, "invalid email or activation code")
+		return
+	}
+
+	// if matched update user to "active"
+	var userActivated models.User
+	userActivated.Status = "active"
+	userActivated.Email = user.Email
+	userActivated.ID = user.ID
+	ID, err := uh.store.Update(&userActivated)
+	if err != nil {
+		c.String(http.StatusOK, "unable to activate, contact support")
+		return
+	}
+	fmt.Println("USER Activated ID: ", ID)
+	c.Header("HX-Location", "/login.html")
+	c.String(http.StatusOK, "User Activated", nil)
+}
+
 func (uh *UserHandler) DeleteUser(c *gin.Context) {
 	log.Println("IN Delete handler")
 

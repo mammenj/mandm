@@ -3,7 +3,7 @@ package models
 import (
 	// "time"
 
-	//"github.com/google/uuid"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -15,15 +15,16 @@ type User struct {
 	Password string `json:"password"`
 	Role     string `json:"role" gorm:"default:user"`
 	Status   string `json:"status" gorm:"default:inactive"`
-	Message  string `json:"message" `
+	Message  string `json:"message"`
+	UUID     string `json:"uuid"`
 }
 
 // BeforeCreate BeforeCreate
-/* func (u *User) BeforeCreate(scope *gorm.DB) error {
+func (u *User) BeforeCreate(scope *gorm.DB) error {
 	//scope.Statement.SetColumn("UpdatedAt", time.Now())
-	scope.Statement.SetColumn("UID", uuid.New().String())
+	scope.Statement.SetColumn("UUID", uuid.New().String())
 	return nil
-} */
+}
 
 // BeforeUpdate BeforeUpdate
 /* func (u *User) BeforeUpdate(scope *gorm.DB) error {

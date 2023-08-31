@@ -6,6 +6,7 @@ import (
 
 	"github.com/mammenj/mandm/models"
 	"gorm.io/driver/sqlite"
+
 	//"github.com/glebarez/sqlite"
 	//"database/sql"
 
@@ -73,7 +74,8 @@ func (us *UserSqlliteStore) Update(mu *models.User) (uint, error) {
 func (us *UserSqlliteStore) GetOne(id string) (*models.User, error) {
 	log.Println("Get Users ID: ", id)
 	var user *models.User
-	result := us.DB.First(&user, id)
+	//db.Where("name = ? AND age >= ?", "jinzhu", "22").Find(&users)
+	result := us.DB.Where("ID = ? AND status = ?", id, "active")
 	if result.Error != nil {
 		return nil, result.Error
 	}
