@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MinnaMinni -  Brides Wanted</title>
+    <title>MinnaMinni - Brides Wanted</title>
     <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="/static/htmx.min.js" type="application/javascript"></script>
 
@@ -43,32 +43,17 @@
                         {{ block "ads-list-element" .}}
 
                         <div class="card">
-
-
-                            <!-- <div class="row"> -->
-                            <!-- <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-0">{{.Section}} - {{.Religiion}}, {{.Cast}} </h5>
-                                    <small>3 Views</small>
-                                </div> -->
-
                             <div class="card-body">
 
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-0">{{.Section}} - {{.Religiion}}, {{.Cast}} </h5>
                                 </div>
-
                                 <p class="mb-0">{{.Preferences}}</p>
                                 <p class="mb-0">{{.Description}} </p>
                                 <p class="mb-0"><b>Job: </b>{{.JobType}} {{.Job }} </p>
                                 <p class="mb-0"><b>Education: </b>{{.Education}}</p>
                                 <p class="text-muted">Ad ID: {{.ID}}</p>
                             </div>
-                            <!-- </a> -->
-
-
-
-
                         </div>
                         {{end}}
                         {{end}}
@@ -82,7 +67,7 @@
         </div>
     </main>
     <div class="container">
-    {{ template "footerHTML" . }}
+        {{ template "footerHTML" . }}
     </div>
     <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
 </body>

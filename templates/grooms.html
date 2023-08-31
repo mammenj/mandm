@@ -41,17 +41,16 @@
 
                         {{ range .AdMap.Ads }}
                         {{ block "ads-list-element" .}}
-
                         <div class="card">
 
                             <div class="card-body">
 
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-0">{{.Section}} - {{.Religiion}}, {{.Cast}} </h5>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#adModal">
-                                        View more...
+                                    <button type="button" class="btn btn-primary" hx-target="#messagebox"
+                                        hx-get="/users/message" hx-vals='{"ID": "{{.ID}}","ad":"{{.Description}}"}'> Message
                                     </button>
+
                                 </div>
 
                                 <p class="mb-0">{{.Preferences}}</p>
@@ -63,56 +62,14 @@
                         </div>
                         {{end}}
                         {{end}}
-
                     </div>
                 </div>
+                <div class="col-md-3" id="messagebox"></div>
             </div>
             {{end}}
         </div>
     </main>
 
-    <div class="modal fade" id="adModal" tabindex="-1" aria-labelledby="adModalLabel" aria-hidden="true">2
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="adModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4">.col-md-4</div>
-                            <div class="col-md-4 ms-auto">Ad :: {{.Description}}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 ms-auto">.col-md-3 .ms-auto</div>
-                            <div class="col-md-2 ms-auto">.col-md-2 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 ms-auto">.col-md-6 .ms-auto</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-9">
-                                Level 1: .col-sm-9
-                                <div class="row">
-                                    <div class="col-8 col-sm-6">
-                                        Level 2: .col-8 .col-sm-6
-                                    </div>
-                                    <div class="col-4 col-sm-6">
-                                        Level 2: .col-4 .col-sm-6
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container">
         {{ template "footerHTML" . }}
     </div>

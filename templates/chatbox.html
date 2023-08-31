@@ -1,0 +1,11 @@
+<div class="form-group">
+    <div class="col-md-12 bg-danger text-bg-danger" id="sentresult"></div>
+    <form hx-post="/users/sendmessage"  hx-target="#sentresult" hx-swap="innerHTML" class="was-validated">
+        <label for="message-descripion" class="form-label">You are contacting AD-{{.ID}} - {{.ad}}</label>
+        <textarea class="form-control" id="message-descripion" rows="3" name="Message" required></textarea>
+        <div class="form-group mb-2 my-2">
+            <button class="btn btn-primary" hx-indicator="#loading2">Send</button>
+            <img id="loading2" class="htmx-indicator" src="/static/images/load.gif" />
+        </div>
+    </form>
+</div>

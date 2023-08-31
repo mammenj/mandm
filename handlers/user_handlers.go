@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/mammenj/mandm/messages"
 	"github.com/mammenj/mandm/models"
 	"github.com/mammenj/mandm/security"
 	"github.com/mammenj/mandm/storage"
@@ -135,7 +136,22 @@ func (uh *UserHandler) CreateUser(c *gin.Context) {
 		c.String(http.StatusOK, err.Error(), nil)
 		return
 	}
+	//body := "Hello " + user.Name + ", you have registered for a Minnaminny account. If you havent registered, please ignore. Your activation code is " + user.UUID + ". Please visit http://localhost:8080/activate.html to activate your account."
+
+	multi_body := ` Hello %s, you have registered for a MinnaMinny account.
+	If you have not registered, please ignore. If you did register, this is your activation code: %s.
+	Please visit our site at http://localhost:8080/activate.html to activate and use our website.
+	Thanks and all the best in finding your spouse`
+
+	filled_body := fmt.Sprintf(multi_body, user.Name, user.UUID)
+
+	log.Println(">> multi_body is :: ", multi_body)
 
 	fmt.Println("USER CREATED ID: ", ID)
+	err = messages.SendMail("mammenj@live.com", "mammenj@live.com", "Activation test", filled_body)
+	if err != nil {
+		log.Fatal(">>Error sending email :: ", err.Error())
+	}
+
 	c.String(http.StatusOK, "User created ID:: "+ID, "Keep the ID for reference")
 }

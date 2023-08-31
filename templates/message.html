@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minna Minni ©2023 - Message</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="/static/htmx.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+    {{ template "headerHTML" . }}
+    <main class="my-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="/static/images/molay3.jpg" alt="" class="img-fluid" />
+                </div>
+                <div class="col-md-9">
+                    <h2 class="mt-2">Message regarding an AD</h2>
+                    {{if ne .User.ID 0}}
+                    <div class="bg-info-subtle col-md-3 px-2 my-1 py-1">
+                        Welcome {{.User.Name}} !!
+                       
+                    </div>
+                    <div>
+                        <a href="/ads.html" class="btn btn-success"> Place your Ads now!!</a>
+                    </div>
+                    {{else}}
+                    <p class="mt-2">
+                        <b>Please <a href="/login.html">register </a> yourself and place your ad and wait for the responses to come in!</b>
+                    </p>
+                    {{end}}
+                    <p class="mt-3">
+                        Best place to find your match, no hassle of membership or payment, secure, anonymous.
+                    </p>
+
+                    
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col">
+                    <div class="bg-dark-subtle text-white px-2 my-3 py-3 card text-center">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search using any key word" aria-label="Search" />
+                            <button class="btn btn-primary" type="submit">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col">
+                    <div class="card-group">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Why Us?</h5>
+                                <p class="card-text">
+                                    Because easy to find your match. Its private, secure and free! 
+                                    No personal information is shared or displayed on the website, unless you do so explicitly.
+                                    You dont need to share your phone, email or any personal details online. 
+                                    Your email is required only for registration to this site.
+                                    You can message the prospective groom or bride directly, until you are ready to make contact.
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Its Free as in free beer!</h5>
+                                <p class="card-text">
+                                    Its FREE to post and view. You can edit, delete or disable your ad whenever.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-5">
+                <div class="col">
+                    <div class="card-group">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h5 class="card-title">Donation</h5>
+                                <p class="card-text">
+                                    We will accept donations to ensure the site is available for free. 
+                                    You may donate via UPI or Credit Card. There is no minimum or maximum amount.
+
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">The code is available as Open source</h5>
+                                <p class="card-text">
+                                    The entire code base of this site is available on Github...coming soon.
+                                    This site is implemneted with htmx, bootstrap 5, Golang and Sqlite.
+                                    It is designed to be simple.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <div class="container">
+    {{ template "footerHTML" . }}
+    </div>
+    <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
+</body>
+
+</html>

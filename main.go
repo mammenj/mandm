@@ -52,8 +52,8 @@ var loginTemplate *template.Template = template.Must(template.ParseFiles(
 var tncTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/tnc.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
-var logoutTemplate *template.Template = template.Must(template.ParseFiles(
-	"templates/user.html"))
+// var logoutTemplate *template.Template = template.Must(template.ParseFiles(
+// 	"templates/user.html"))
 
 var aboutUsTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/aboutus.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
@@ -63,6 +63,9 @@ var myAdsTemplate *template.Template = template.Must(template.ParseFiles(
 
 var activateTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/activate.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+
+var chatTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/chatbox.html"))
 
 type pageData struct {
 	User  models.User
@@ -228,6 +231,16 @@ func main() {
 	r.GET("/users/:id", userHandler.GetUser)
 	r.POST("/login", security.Login)
 	r.PATCH("/users/activate", userHandler.ActivateUser)
+	r.POST("/users/sendmessage", func(c *gin.Context) {
+		params := c.Request.URL.Query()
+		log.Println("Params :: ", params)
+		c.String(http.StatusOK, "Message sent")
+	})
+	r.GET("/users/message", func(c *gin.Context) {
+		params := c.Request.URL.Query()
+		log.Println("Params :: ", params)
+		chatTemplate.Execute(c.Writer, params)
+	})
 	r.POST("/logout", func(c *gin.Context) {
 
 		session := sessions.Default(c)
