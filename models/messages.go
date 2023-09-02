@@ -7,7 +7,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// User "Object
 type Messages struct {
 	gorm.Model
 	Name    string `json:"name"`

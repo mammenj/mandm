@@ -3,6 +3,7 @@ package main
 import (
 	//"embed"
 	"html/template"
+	"regexp"
 
 	//"io/fs"
 	"log"
@@ -232,9 +233,25 @@ func main() {
 	r.POST("/login", security.Login)
 	r.PATCH("/users/activate", userHandler.ActivateUser)
 	r.POST("/users/sendmessage", func(c *gin.Context) {
-		params := c.Request.URL.Query()
-		log.Println("Params :: ", params)
-		c.String(http.StatusOK, "Message sent")
+		message := c.Request.FormValue("Message")
+		log.Println("Body from send messge ", message)
+		adid := c.Request.FormValue("ad-id")
+		// hack to remove [] brackets
+		adIdStr := regexp.MustCompile(`[^a-zA-Z0-9 ]+`).ReplaceAllString(adid, "")
+
+		log.Println("ad-id from send messge ", adIdStr)
+		adDescription := c.Request.FormValue("ad-description")
+		log.Println("ad-description from send messge ", adDescription)
+		user := auth.GetLoggedInUser(c)
+		admsgStore := storage.NewSqliteAdMessageStore()
+		loggedID := user.ID
+		admessages := &models.AdMessages{FromUser: loggedID, ToUser: loggedID, AdID: adIdStr, Message: message}
+		_, err := admsgStore.Create(admessages)
+		if err != nil {
+			c.String(http.StatusOK, err.Error(), nil)
+			return
+		}
+		c.String(http.StatusOK, "<div class=\"mx-1 bg-info\"> Message sent!</div>")
 	})
 	r.GET("/users/message", func(c *gin.Context) {
 		params := c.Request.URL.Query()
