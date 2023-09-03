@@ -133,6 +133,7 @@ func (uh *UserHandler) CreateUser(c *gin.Context) {
 	_, err := validators.ValidateEmail(email)
 	if err != nil {
 		c.String(http.StatusOK, "Invalid Email: "+err.Error())
+		return
 	}
 	log.Println("CreateUser bound user", user)
 	user.Password = security.HashAndSalt([]byte(user.Password))
