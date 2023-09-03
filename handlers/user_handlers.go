@@ -11,6 +11,7 @@ import (
 	"github.com/mammenj/mandm/models"
 	"github.com/mammenj/mandm/security"
 	"github.com/mammenj/mandm/storage"
+	"github.com/mammenj/mandm/validators"
 )
 
 type UserHandler struct {
@@ -127,6 +128,11 @@ func (uh *UserHandler) CreateUser(c *gin.Context) {
 		//c.JSON(http.StatusOK, gin.H{"error": err.Error()})
 		c.String(http.StatusOK, err.Error(), nil)
 		return
+	}
+	email := user.Email
+	_, err := validators.ValidateEmail(email)
+	if err != nil {
+		c.String(http.StatusOK, "Invalid Email: "+err.Error())
 	}
 	log.Println("CreateUser bound user", user)
 	user.Password = security.HashAndSalt([]byte(user.Password))
