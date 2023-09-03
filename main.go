@@ -21,6 +21,7 @@ import (
 	"github.com/mammenj/mandm/models"
 	"github.com/mammenj/mandm/security"
 	"github.com/mammenj/mandm/storage"
+	"github.com/mammenj/mandm/validators"
 )
 
 /*go:embed templates*/
@@ -67,6 +68,9 @@ var activateTemplate *template.Template = template.Must(template.ParseFiles(
 
 var chatTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/chatbox.html"))
+
+var validEmailTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/validemail.html"))
 
 type pageData struct {
 	User  models.User
@@ -298,5 +302,19 @@ func main() {
 		c.String(http.StatusOK, "Messages sent, your feedback ID :: "+ID, "Keep the ID for reference")
 	})
 
+	r.POST("/validatemail", func(c *gin.Context) {
+		email := c.Request.FormValue("Email")
+		log.Println("Email is ", email)
+		isValid, err := validators.ValidateEmail(email)
+		if err != nil {
+			log.Println("Email err is ", err)
+			validEmailTemplate.Execute(c.Writer, err.Error())
+
+		}
+		if isValid {
+			log.Println("Email valid ")
+			validEmailTemplate.Execute(c.Writer, email)
+		}
+	})
 	r.Run()
 }

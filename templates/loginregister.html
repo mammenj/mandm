@@ -82,12 +82,13 @@
                                 placeholder="Enter your full name." minlength="3" maxlength="50" required>
                             <div class="invalid-feedback">Please enter your full name.</div>
                         </div>
-                        <div class="col-sm-6 form-group">
+                        <div class="col-sm-6 form-group" hx-target="this" hx-swap="outerHTML">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" name="Email" id="email"
-                                placeholder="Enter your email." required>
-                            <div class="invalid-feedback">Please enter your email.</div>
+                            <input type="email" class="form-control" name="Email" id="email" hx-post="/validatemail"
+                                hx-indicator="#ind" placeholder="Enter your email." required>
+                            <img id="ind" src="/static/images/load.gif" class="htmx-indicator" />
                         </div>
+
                         <div class="col-sm-6 form-group">
                             <label for="password2" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password2" name="Password" value=""

@@ -1,0 +1,9 @@
+<div class="col-sm-6 form-group" hx-target="this" hx-swap="outerHTML">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" name="Email" id="email" hx-post="/validatemail" hx-indicator="#ind" value='{{.}}'
+        placeholder="Enter your email." required>
+    <img id="ind" src="/static/images/load.gif" class="htmx-indicator" />
+    {{if ne . "valid"}}
+    <div class="invalid-feedback">{{.}}</div>
+    {{end}}
+</div>
