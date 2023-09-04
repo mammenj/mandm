@@ -62,13 +62,20 @@
 
                             <div class="invalid-feedback">Please enter your full name.</div>
                         </div>
-                        <div class="col-sm-6 form-group">
+                        <!-- <div class="col-sm-6 form-group">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" name="Email" id="email"
                                 placeholder="Enter your email." required>
 
                             <div class="invalid-feedback">Please enter your email</div>
+                        </div> -->
+                        <div class="col-sm-6 form-group" hx-target="this" hx-swap="outerHTML">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="Email" id="email" hx-post="/validatemail"
+                                hx-indicator="#inde" placeholder="Enter your email." required>
+                            <img id="inde" src="/static/images/load.gif" class="htmx-indicator" />
                         </div>
+
                         <legend>Ad details</legend>
                         <div class="col-sm-12 form-group">
                             <label for="ad-descripion" class="form-label">Ad Description</label>
