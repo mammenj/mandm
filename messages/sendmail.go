@@ -1,7 +1,6 @@
 package messages
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -9,7 +8,7 @@ import (
 	"github.com/mailjet/mailjet-apiv3-go/v4"
 )
 
-func SendMail(fromEmail, emailTo, subject, body string) error{
+func SendMail(fromEmail, emailTo, subject, body string) error {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -19,7 +18,7 @@ func SendMail(fromEmail, emailTo, subject, body string) error{
 		{
 			From: &mailjet.RecipientV31{
 				Email: fromEmail,
-				Name:  "MinnaMinny.com",
+				Name:  "Admin",
 			},
 			To: &mailjet.RecipientsV31{
 				mailjet.RecipientV31{
@@ -33,9 +32,13 @@ func SendMail(fromEmail, emailTo, subject, body string) error{
 	}
 	messages := mailjet.MessagesV31{Info: messagesInfo}
 	res, err := mailjetClient.SendMailV31(&messages)
-	fmt.Printf("Data: %+v\n", res)
+	if res != nil {
+		log.Printf("Data: %+v\n", res)
+	} else {
+		log.Println("NO DATA FROM EMAIL Provider")
+	}
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 		return err
 	}
 	return nil

@@ -154,11 +154,12 @@ func (uh *UserHandler) CreateUser(c *gin.Context) {
 
 	log.Println(">> multi_body is :: ", multi_body)
 
-	fmt.Println("USER CREATED ID: ", ID)
-	err = messages.SendMail("mammenj@live.com", "mammenj@live.com", "Activation test", filled_body)
-	if err != nil {
-		log.Fatal(">>Error sending email :: ", err.Error())
-	}
-
-	c.String(http.StatusOK, "User created ID:: "+ID, "Keep the ID for reference")
+	log.Println("USER CREATED ID: ", ID)
+	go messages.SendMail("mammenj@live.com", user.Email, "Activation test", filled_body)
+	// if err != nil {
+	// 	log.Fatal(">> Error Sending mail:: ", err.Error())
+	// 	c.String(http.StatusOK, "User created ID:: "+ID, " but error sending email: "+err.Error())
+	// 	return
+	// }
+	c.String(http.StatusOK, "User created ID:: "+ID)
 }

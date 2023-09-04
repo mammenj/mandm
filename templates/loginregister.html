@@ -62,7 +62,7 @@
                 {{end}}
             </div>
             <div class="container my-3 bg-dark-subtle">
-                <form hx-post="/users" hx-target="#registerresult" hx-swap="innerHTML" class="was-validated">
+                <form hx-post="/users" hx-target="this" hx-swap="innerHTML" class="was-validated">
                     <div class="row g-3">
                         <div>
                             <h2 class="text-center text-bg-dark">Register As Bride, Groom or Third Party Agents</h2>
@@ -125,7 +125,7 @@
                     </div>
                 </form>
                 <div id="registerresult" class="bg-info">
-                    <!---- end -->
+
                 </div>
             </div>
         </div>
