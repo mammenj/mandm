@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minna Minni ©2023 - Messages</title>
+    <link href="/static/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="/static/htmx.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+    {{ template "headerHTML" . }}
+    <main class="my-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="/static/images/molay3.jpg" alt="" class="img-fluid" />
+                </div>
+                <div class="col-md-9">
+                    <h2 class="mt-2">Minna Minni ©2023 - Send Message</h2>
+                    {{if ne .User.ID 0}}
+                    <div class="bg-info-subtle col-md-3 px-2 my-1 py-1">
+                        Welcome {{.User.Name}} !!
+
+                    </div>
+                    {{end}}
+                    <p class="mt-3">
+                        Best place to find your match, no hassle of membership or paymen
+                        Place your ad and wait for the calls to come in!
+                    </p>
+                    <a href="/ads.html" class="btn btn-success"> Place your Ads now!!</a>
+                </div>
+            </div>
+
+            <div class="row my-5">
+                <section style="background-color: #eee;">
+                    <div class="container py-2">
+
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-4 col-lg-6 col-xl-4">
+
+                                <div class="card" id="chat1" style="border-radius: 15px;">
+                                    <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+                                        style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                                        <i class="fas fa-angle-left"></i>
+                                        <p class="mb-0 fw-bold">Messages</p>
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="d-flex flex-row justify-content-start mb-4">
+                                            <img src="/static/images/av1.webp" alt="avatar 1"
+                                                style="width: 45px; height: 100%;">
+                                            <div class="p-3 ms-3"
+                                                style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                <p class="small mb-0">Hello and thank you for visiting MDBootstrap.
+                                                    Please click the video
+                                                    below.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row justify-content-end mb-4">
+                                            <div class="p-3 me-3 border"
+                                                style="border-radius: 15px; background-color: #fbfbfb;">
+                                                <p class="small mb-0">Thank you, I really like your product.</p>
+                                            </div>
+                                            <img src="/static/images/av2.webp" alt="avatar 1"
+                                                style="width: 45px; height: 100%;">
+                                        </div>
+
+                                        <div class="d-flex flex-row justify-content-start mb-4">
+                                            <img src="/static/images/av1.webp" alt="avatar 1"
+                                                style="width: 45px; height: 100%;">
+                                            <div class="ms-3" style="border-radius: 15px;">
+                                                <div class="bg-image">
+                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/screenshot1.webp"
+                                                        style="border-radius: 15px;" alt="video">
+                                                    <a href="#!">
+                                                        <div class="mask"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row justify-content-start mb-4">
+                                            <img src="/static/images/av1.webp" alt="avatar 1"
+                                                style="width: 45px; height: 100%;">
+                                            <div class="p-3 ms-3"
+                                                style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                                                <p class="small mb-0">...</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-outline">
+                                            <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                                            <label class="form-label" for="textAreaExample">Type your message</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+    <div class="container">
+        {{ template "footerHTML" . }}
+    </div>
+    <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
+</body>
+
+</html>

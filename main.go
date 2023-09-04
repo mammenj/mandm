@@ -54,8 +54,8 @@ var loginTemplate *template.Template = template.Must(template.ParseFiles(
 var tncTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/tnc.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
-// var logoutTemplate *template.Template = template.Must(template.ParseFiles(
-// 	"templates/user.html"))
+var messageTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/chat.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
 var aboutUsTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/aboutus.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
@@ -127,6 +127,15 @@ func main() {
 			page = pageData{*user, nil}
 		}
 		contactTemplate.Execute(c.Writer, page)
+	})
+
+	r.GET("/messages.html", func(c *gin.Context) {
+		var page pageData
+		user := auth.GetLoggedInUser(c)
+		if user != nil {
+			page = pageData{*user, nil}
+		}
+		messageTemplate.Execute(c.Writer, page)
 	})
 
 	r.GET("/activate.html", func(c *gin.Context) {

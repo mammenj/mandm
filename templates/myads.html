@@ -48,6 +48,7 @@
                             <th scope="col">From User</th>
                             <th scope="col">For Ad ID</th>
                             <th scope="col">Date Recived</th>
+                            <th scope="col"></th>
 
                         </tr>
                     </thead>
@@ -61,6 +62,7 @@
                             <td>{{.FromUser}}</td>
                             <td>{{.AdID}}</td>
                             <td>{{.UpdatedAt}}</td>
+                            <td><a href='/messages.html?adid={{.AdID}}'>Message</a></td>
                         </tr>
 
                         {{end}}

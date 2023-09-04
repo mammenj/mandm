@@ -3,8 +3,6 @@ p, admin, /*, *
 p, anonymous, /login*, *
 p, anonymous, /user*, *
 p, anonymous, /ads*, *
-p, anonymous, /brides*, *
-p, anonymous, /grooms*, *
 p, anonymous, /header*, *
 p, anonymous, /footer*, *
 p, anonymous, /index*, *
@@ -14,6 +12,7 @@ p, anonymous, /tnc*, *
 p, anonymous, /menu*, *
 p, anonymous, /about*, *
 p, anonymous, /validate*, *
+
 
 p, user, /login*, *
 p, user, /user*, *
@@ -31,6 +30,8 @@ p, user, /logout*, *
 p, user, /about*, *
 p, user, /myad*, *
 p, user, /validate*, *
+p, user, /messages*, *
+
 
 p, broker, /login*, *
 p, broker, /user*, *
@@ -48,3 +49,4 @@ p, broker, /about*, *
 p, broker, /myad*, *
 p, broker, /logout*, *
 p, broker, /validate*, *
+p, broker, /messages*, *
