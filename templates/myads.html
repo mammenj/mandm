@@ -34,77 +34,65 @@
                 </div>
             </div>
 
-           
+
             <div class="row my-5">
                 <div class="bg-dark-subtle text-bg-primarys">
-                    Ad Views Logs
+                    My Ad Messages
+
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Message #</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">From User</th>
+                            <th scope="col">For Ad ID</th>
+                            <th scope="col">Date Recived</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{ range .AdMessagesMap.AdMessages }}
+                        {{ block "admsgs-list-element" .}}
+                        <tr>
+                            <th scope="row">{{.ID}}</th>
+                            <td>{{.Message}}</td>
+                            <td>{{.FromUser}}</td>
+                            <td>{{.AdID}}</td>
+                            <td>{{.UpdatedAt}}</td>
+                        </tr>
+
+                        {{end}}
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row my-5">
+                <div class="bg-dark-subtle text-bg-primarys">
+                    My Ads
 
                 </div>
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Ad #</th>
-                            <th scope="col">Ad Snippet</th>
-                            <th scope="col">Date Updated</th>
-                            <th scope="col">Views</th>
-
+                            <th scope="col">Ad Description</th>
+                            <th scope="col">Date Posted</th>
+                            <th scope="col">Section</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{ range .AdMap.Ads }}
+                        {{ block "ads-list-element" .}}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark is a jolly fellow required for marriage</td>
-                            <td>25-08-2023</td>
-                            <td>53</td>
+                            <th scope="row">{{.ID}}</th>
+                            <td>{{.Description}}</td>
+                            <td>{{.UpdatedAt}}</td>
+                            <td>{{.Section}}</td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Mark is a jolly fellow required for marriage</td>
-                            <td>12-08-2023</td>
-                            <td>7</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Mark is a jolly fellow required for marriage</td>
-                            <td>12-08-2023</td>
-                            <td>73</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row my-5">
-                <div class="bg-dark-subtle text-bg-primarys">
-                    Activity Logs
-
-                </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">Notes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Today</td>
-                            <td>Login</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Yesterday</td>
-                            <td>Logout</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>30-08-2023</td>
-                            <td>Logout</td>
-                            <td>@twitter</td>
-                        </tr>
+                        {{end}}
+                        {{end}}
                     </tbody>
                 </table>
             </div>

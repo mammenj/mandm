@@ -64,6 +64,18 @@ func (as *AdSqlliteStore) GetSection(section string, offset int) ([]models.Ad, e
 	return ads, nil
 }
 
+func (as *AdSqlliteStore) GetMyAds(myid uint) ([]models.Ad, error) {
+	var ads []models.Ad
+	log.Println("Get GetMyAds section ", myid)
+	result := as.DB.Where("user_id = ?", myid).Find(&ads)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	log.Println("...... Total My ADS : ", result.RowsAffected)
+	return ads, nil
+}
+
 func (as *AdSqlliteStore) Delete(id string) (string, error) {
 	log.Println("Delete AD ID: ", id)
 	result := as.DB.Delete(&models.Ad{}, id)
@@ -76,7 +88,7 @@ func (as *AdSqlliteStore) Delete(id string) (string, error) {
 }
 
 func (as *AdSqlliteStore) Update(ad *models.Ad) (uint, error) {
-	log.Println("Update Users ID: ", ad.ID)
+	log.Println("Update Ad ID: ", ad.ID)
 	result := as.DB.Updates(ad)
 
 	if result.Error != nil {
@@ -94,4 +106,14 @@ func (as *AdSqlliteStore) GetOne(id string) (*models.Ad, error) {
 		return nil, result.Error
 	}
 	return ad, nil
+}
+
+func (as *AdSqlliteStore) GetUserIDbyAdId(id string) (uint, error) {
+	log.Println("Get Users ID by AD: ", id)
+	var ad *models.Ad
+	result := as.DB.First(&ad, id)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+	return ad.UserID, nil
 }

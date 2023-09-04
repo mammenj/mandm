@@ -37,9 +37,20 @@ func (as *AdMessageSqlliteStore) Create(msg *models.AdMessages) (string, error) 
 
 func (as *AdMessageSqlliteStore) Get() ([]models.AdMessages, error) {
 	var msg []models.AdMessages
-	log.Println("Get Ads")
+	log.Println("Get AdMessagess")
 	result := as.DB.Find(&msg)
 
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	log.Println("...... Total records msg : ", result.RowsAffected)
+	return msg, nil
+}
+
+func (as *AdMessageSqlliteStore) GetMessagesToID(toId uint) ([]models.AdMessages, error) {
+	var msg []models.AdMessages
+	log.Println("Get AdMessagess by to_id")
+	result := as.DB.Where("to_user = ?", toId).Find(&msg)
 	if result.Error != nil {
 		return nil, result.Error
 	}

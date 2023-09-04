@@ -20,7 +20,7 @@ func ValidateEmail(email string) (bool, error) {
 	parts := strings.Split(email, "@")
 	mx, err := net.LookupMX(parts[1])
 	if err != nil || len(mx) == 0 {
-		return false, errors.New("invalid email, no MX records")
+		return false, errors.New("invalid email "+err.Error())
 	}
 	return true, nil
 }
