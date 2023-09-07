@@ -83,6 +83,12 @@ type pageDataMessages struct {
 	AdMessagesMap map[string][]models.AdMessages
 }
 
+type pageDataMessagesGroup struct {
+	User          models.User
+	AdMap         map[string][]models.Ad
+	AdMessagesMap map[string][]models.AdMessagesGroup
+}
+
 func main() {
 
 	err := godotenv.Load()
@@ -130,10 +136,25 @@ func main() {
 	})
 
 	r.GET("/messages.html", func(c *gin.Context) {
-		var page pageData
+		var page pageDataMessages
 		user := auth.GetLoggedInUser(c)
 		if user != nil {
-			page = pageData{*user, nil}
+			log.Println("In my ads, user is not nil.....")
+			adMsgStore := storage.NewSqliteAdMessageStore()
+			adStore := storage.NewSqliteAdsStore()
+			ads, err := adStore.GetMyAds(user.ID)
+
+			if err != nil {
+				log.Println("Error in getting Ads, ", err.Error())
+			}
+			admap := map[string][]models.Ad{"Ads": ads}
+			msgs, err := adMsgStore.GetMessagesToID(user.ID)
+			if err != nil {
+				log.Println("Error in getting messages, ", err.Error())
+			}
+			admsgmap := map[string][]models.AdMessages{"AdMessages": msgs}
+			log.Println("Ad message map:: ", admsgmap)
+			page = pageDataMessages{*user, admap, admsgmap}
 		}
 		messageTemplate.Execute(c.Writer, page)
 	})
@@ -160,7 +181,8 @@ func main() {
 				log.Println("Error in getting Ads, ", err.Error())
 			}
 			admap := map[string][]models.Ad{"Ads": ads}
-			msgs, err := adMsgStore.GetMessagesToID(user.ID)
+			//msgs, err := adMsgStore.GetMessagesToID(user.ID)
+			msgs, err := adMsgStore.GetMessagesToIDGroupByFrom(user.ID)
 			if err != nil {
 				log.Println("Error in getting messages, ", err.Error())
 			}

@@ -43,11 +43,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Message #</th>
-                            <th scope="col">Message</th>
+                           
                             <th scope="col">From User</th>
                             <th scope="col">For Ad ID</th>
-                            <th scope="col">Date Recived</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Date Received</th>
                             <th scope="col"></th>
 
                         </tr>
@@ -57,12 +57,13 @@
                         {{ range .AdMessagesMap.AdMessages }}
                         {{ block "admsgs-list-element" .}}
                         <tr>
-                            <th scope="row">{{.ID}}</th>
-                            <td>{{.Message}}</td>
+
                             <td>{{.FromUser}}</td>
                             <td>{{.AdID}}</td>
+                            <td>{{.Message}}</td>
                             <td>{{.UpdatedAt}}</td>
-                            <td><a href='/messages.html?adid={{.AdID}}'>Message</a></td>
+
+                            <td><a href='/messages.html?adid={{.AdID}}&fromuser={{.FromUser}}'>Message</a></td>
                         </tr>
 
                         {{end}}

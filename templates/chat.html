@@ -48,50 +48,20 @@
                                         <p class="mb-0 fw-bold">Messages</p>
                                         <i class="fas fa-times"></i>
                                     </div>
+                                    {{ range .AdMessagesMap.AdMessages }}
+                                    {{ block "admsgs-list-element" .}}
                                     <div class="card-body">
 
                                         <div class="d-flex flex-row justify-content-start mb-4">
-                                            <img src="/static/images/av1.webp" alt="avatar 1"
-                                                style="width: 45px; height: 100%;">
+                                            <label class="form-label">User: {{.FromUser }}</label>
                                             <div class="p-3 ms-3"
                                                 style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                                                <p class="small mb-0">Hello and thank you for visiting MDBootstrap.
-                                                    Please click the video
+                                                <p class="small mb-0">{{.Message}}
                                                     below.</p>
                                             </div>
                                         </div>
-
-                                        <div class="d-flex flex-row justify-content-end mb-4">
-                                            <div class="p-3 me-3 border"
-                                                style="border-radius: 15px; background-color: #fbfbfb;">
-                                                <p class="small mb-0">Thank you, I really like your product.</p>
-                                            </div>
-                                            <img src="/static/images/av2.webp" alt="avatar 1"
-                                                style="width: 45px; height: 100%;">
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-start mb-4">
-                                            <img src="/static/images/av1.webp" alt="avatar 1"
-                                                style="width: 45px; height: 100%;">
-                                            <div class="ms-3" style="border-radius: 15px;">
-                                                <div class="bg-image">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/screenshot1.webp"
-                                                        style="border-radius: 15px;" alt="video">
-                                                    <a href="#!">
-                                                        <div class="mask"></div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex flex-row justify-content-start mb-4">
-                                            <img src="/static/images/av1.webp" alt="avatar 1"
-                                                style="width: 45px; height: 100%;">
-                                            <div class="p-3 ms-3"
-                                                style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
-                                                <p class="small mb-0">...</p>
-                                            </div>
-                                        </div>
+                                        {{end}}
+                                        {{end}}
 
                                         <div class="form-outline">
                                             <textarea class="form-control" id="textAreaExample" rows="4"></textarea>

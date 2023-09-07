@@ -57,3 +57,24 @@ func (as *AdMessageSqlliteStore) GetMessagesToID(toId uint) ([]models.AdMessages
 	log.Println("...... Total records msg : ", result.RowsAffected)
 	return msg, nil
 }
+
+func (as *AdMessageSqlliteStore) GetMessagesToIDGroupByFrom(toId uint) ([]models.AdMessages, error) {
+	var msg []models.AdMessages
+	log.Println("Get GetMessagesToIDGroupByFrom by to_id")
+
+	/// SELECT
+	// 	albumid,
+	// 	COUNT(trackid)
+	// FROM
+	// 	tracks
+	// GROUP BY
+	// 	albumid;
+
+	result := as.DB.Raw("SELECT * FROM ad_messages WHERE to_user = ? GROUP BY from_user order by updated_at desc", toId).Scan(&msg)
+	//result := as.DB.Where("to_user = ?", toId).Group("from_user").Find(&msg)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	log.Println("...... Total GetMessagesToIDGroupByFrom records msg : ", result.RowsAffected)
+	return msg, nil
+}
