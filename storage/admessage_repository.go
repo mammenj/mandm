@@ -70,7 +70,7 @@ func (as *AdMessageSqlliteStore) GetMessagesToIDGroupByFrom(toId uint) ([]models
 	// GROUP BY
 	// 	albumid;
 
-	result := as.DB.Raw("SELECT * FROM ad_messages WHERE to_user = ? GROUP BY from_user order by updated_at desc", toId).Scan(&msg)
+	result := as.DB.Raw("SELECT * FROM ad_messages WHERE to_user = ? GROUP BY from_user", toId).Scan(&msg)
 	//result := as.DB.Where("to_user = ?", toId).Group("from_user").Find(&msg)
 	if result.Error != nil {
 		return nil, result.Error
