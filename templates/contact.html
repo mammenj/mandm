@@ -34,12 +34,13 @@
 
                         </div>
                         <form hx-post="/messages" hx-target="#sentresult" class="was-validated">
-                            <div class="my-2">
+                            <div class="my-2" hx-target="this" hx-swap="outerHTML">
                                 <label for="email" class="form-label">Email:</label>
-                                <input name="Email" type="email" id="email" placeholder="my@email.com"
-                                    class="form-control" required />
-                                <div class="invalid-feedback">Please enter your email.</div>
+                                <input type="email" class="form-control" name="Email" id="email" hx-post="/validatemail"
+                                hx-indicator="#ind" placeholder="Enter your email." required>
+                                    <img id="ind" src="/static/images/load.gif" class="htmx-indicator" />
                             </div>
+
                             <div class="my-2">
                                 <label for="name" class="form-label">Name:</label>
                                 <input type="text" name="Name" id="name" placeholder="e.g. Dawid" class="form-control"

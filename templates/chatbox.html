@@ -1,6 +1,6 @@
 <div class="form-group">
     <div class="col-md-12 bg-danger text-bg-danger" id="sentresult"></div>
-    <form hx-post="/users/sendmessage"  hx-target="this"  class="was-validated">
+    <form hx-post="/users/sendmessage" hx-target="this" class="was-validated">
         <label for="message-descripion" class="form-label">You are contacting <b>AD-{{.ID}}</b> Ad: {{.ad}}</label>
         <input type="hidden" id="ad-id" name="ad-id" value='{{.ID}}'>
         <input type="hidden" id="ad-description" name="ad-description" value='{{.ad}}'>

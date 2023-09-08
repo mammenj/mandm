@@ -13,6 +13,8 @@ p, anonymous, /menu*, *
 p, anonymous, /about*, *
 p, anonymous, /validate*, *
 p, anonymous, /register*, *
+p, anonymous, /grooms*, *
+p, anonymous, /brides*, *
 
 
 p, user, /login*, *

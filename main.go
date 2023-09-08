@@ -123,10 +123,7 @@ func main() {
 
 	r.GET("/", func(c *gin.Context) {
 		var page pageData
-
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
-
 			page = pageData{*user, nil}
 		} else {
 			page = pageData{models.User{Name: ""}, nil}
@@ -136,7 +133,6 @@ func main() {
 
 	r.GET("/contact.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -145,7 +141,6 @@ func main() {
 
 	r.GET("/messages.html", func(c *gin.Context) {
 		var page pageDataMessages
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In my ads, user is not nil.....")
 			fromID := c.Query("fromuser")
@@ -158,7 +153,6 @@ func main() {
 				log.Println("Error in getting Ads, ", err.Error())
 			}
 			admap := map[string][]models.Ad{"Ads": ads}
-			//msgs, err := adMsgStore.GetMessagesToID(user.ID)
 			msgs, err := adMsgStore.GetMessagesToIDFromID(user.ID, uint(fromUint))
 
 			if err != nil {
@@ -177,7 +171,6 @@ func main() {
 
 	r.GET("/activate.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -186,7 +179,6 @@ func main() {
 
 	r.GET("/myads.html", func(c *gin.Context) {
 		var page pageDataMessages
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In my ads, user is not nil.....")
 			adMsgStore := storage.NewSqliteAdMessageStore()
@@ -197,7 +189,6 @@ func main() {
 				log.Println("Error in getting Ads, ", err.Error())
 			}
 			admap := map[string][]models.Ad{"Ads": ads}
-			//msgs, err := adMsgStore.GetMessagesToID(user.ID)
 			msgs, err := adMsgStore.GetMessagesToIDGroupByFrom(user.ID)
 			if err != nil {
 				log.Println("Error in getting messages, ", err.Error())
@@ -211,7 +202,6 @@ func main() {
 
 	r.GET("/aboutus.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -225,12 +215,11 @@ func main() {
 		log.Println(" Groom offset ", offset)
 		ads, err := adStore.GetSection("Groom Wanted", offsetInt)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.String(http.StatusOK, err.Error())
 			return
 		}
 		admap := map[string][]models.Ad{"Ads": ads}
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In groom user !=null ")
 			page = pageData{*user, admap}
@@ -253,21 +242,17 @@ func main() {
 			return
 		}
 		admap := map[string][]models.Ad{"Ads": ads}
-		//brideTemplate.Execute(c.Writer, admap)
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In bride user !=null ")
 			page = pageData{*user, admap}
 		} else {
 			page = pageData{models.User{}, admap}
 		}
-		//log.Println("Page in brides ", page)
 		brideTemplate.Execute(c.Writer, page)
 	})
 
 	r.GET("/ads.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -276,7 +261,6 @@ func main() {
 
 	r.GET("/login.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -287,7 +271,6 @@ func main() {
 
 	r.GET("/register.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -298,7 +281,6 @@ func main() {
 
 	r.GET("/tnc.html", func(c *gin.Context) {
 		var page pageData
-		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -326,18 +308,23 @@ func main() {
 		adDescription := c.Request.FormValue("ad-description")
 		log.Println("ad-description from send messge ", adDescription)
 		//user := auth.GetLoggedInUser(c)
+
+		if user == nil {
+			c.String(http.StatusOK, "<div class=\"mx-1 bg-danger text-bg-danger\"> Please login to send messages!</div>")
+			return
+		}
 		admsgStore := storage.NewSqliteAdMessageStore()
 		loggedID := user.ID
 		adStore := storage.NewSqliteAdsStore()
 		toID, err := adStore.GetUserIDbyAdId(adIdStr)
 		if err != nil {
-			c.String(http.StatusOK, "div class=\"mx-1 bg-info\"> Invalid AD!</div>", nil)
+			c.String(http.StatusOK, "<div class=\"mx-1 bg-danger text-bg-danger\"> Invalid AD!</div>")
 			return
 		}
 		admessages := &models.AdMessages{FromUser: loggedID, ToUser: toID, AdID: adIdStr, Message: message}
 		_, err = admsgStore.Create(admessages)
 		if err != nil {
-			c.String(http.StatusOK, err.Error(), nil)
+			c.String(http.StatusOK, err.Error())
 			return
 		}
 		c.String(http.StatusOK, "<div class=\"mx-1 bg-info\"> Message sent!</div>")

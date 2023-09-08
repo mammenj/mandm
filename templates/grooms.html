@@ -31,10 +31,13 @@
                         Place your ad and wait for the responses to come in!
                     </p>
                     <a href="/ads.html" class="btn btn-success"> Place your Ads now!!</a>
+                    <p class="mt-3">
+                        <b>You must be logged in to send messages!!</b>
+                    </p>
                 </div>
             </div>
 
-            {{if ne .User.Name ""}}
+
             <div class="row">
                 <div class="col-md-8">
                     <div class="card-deck">
@@ -45,10 +48,12 @@
                             <div class="card-body">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-0">{{.Section}} - {{.Religiion}}, {{.Cast}} </h5>
+                                  
                                     <button type="button" class="btn btn-sm btn-primary" hx-target="#messagebox"
                                         hx-get="/users/message" hx-vals='{"ID": "{{.ID}}","ad":"{{.Description}}"}'>
                                         Message
                                     </button>
+                       
                                 </div>
                                 <p class="mb-0">{{.Preferences}}</p>
                                 <p class="mb-0">{{.Description}} </p>
@@ -63,7 +68,7 @@
                 </div>
                 <div class="col-md-3 mx-1" id="messagebox"></div>
             </div>
-            {{end}}
+
         </div>
     </main>
     <div class="container">
