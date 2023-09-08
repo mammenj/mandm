@@ -23,28 +23,30 @@
                     {{if ne .User.ID 0}}
                     <div class="bg-info-subtle col-md-3 px-2 my-1 py-1">
                         Welcome {{.User.Name}} !!
-                       
+
                     </div>
                     <div>
                         <a href="/ads.html" class="btn btn-success"> Place your Ads now!!</a>
                     </div>
                     {{else}}
                     <p class="mt-2">
-                        <b>Please <a href="/login.html">register </a> yourself and place your ad and wait for the responses to come in!</b>
+                        <b>Please <a href="/login.html">login </a> or <a href="/register.html">register </a> yourself
+                            and place your ad and wait for the responses to come in!</b>
                     </p>
                     {{end}}
                     <p class="mt-3">
                         Best place to find your match, no hassle of membership or payment, secure, anonymous.
                     </p>
 
-                    
+
                 </div>
             </div>
             <div class="row my-5">
                 <div class="col">
                     <div class="bg-dark-subtle text-white px-2 my-3 py-3 card text-center">
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search using any key word" aria-label="Search" />
+                            <input class="form-control me-2" type="search" placeholder="Search using any key word"
+                                aria-label="Search" />
                             <button class="btn btn-primary" type="submit">
                                 Search
                             </button>
@@ -60,11 +62,13 @@
                             <div class="card-body">
                                 <h5 class="card-title">Why Us?</h5>
                                 <p class="card-text">
-                                    Because easy to find your match. Its private, secure and free! 
-                                    No personal information is shared or displayed on the website, unless you do so explicitly.
-                                    You dont need to share your phone, email or any personal details online. 
+                                    Because easy to find your match. Its private, secure and free!
+                                    No personal information is shared or displayed on the website, unless you do so
+                                    explicitly.
+                                    You dont need to share your phone, email or any personal details online.
                                     Your email is required only for registration to this site.
-                                    You can message the prospective groom or bride directly, until you are ready to make contact.
+                                    You can message the prospective groom or bride directly, until you are ready to make
+                                    contact.
                                 </p>
 
                             </div>
@@ -88,8 +92,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">Donation</h5>
                                 <p class="card-text">
-                                    If you like this project and it has helped you, kindly donate to UPI minnamini@okaxis.
-                                    This project is kept free as a social service, however there are infrastructure costs.
+                                    If you like this project and it has helped you, kindly donate to UPI
+                                    minnamini@okaxis.
+                                    This project is kept free as a social service, however there are infrastructure
+                                    costs.
                                 </p>
                             </div>
                         </div>
@@ -97,9 +103,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">Privacy and Security</h5>
                                 <p class="card-text">
-                                    We understand your privacy concerns, therefore this site does not share your details on the website
-                                    or externaly. You contact the advertiser through messaging pages. When you are comfortable and enough
-                                    information from the advertiser, then its your decision to share your personal information, such as email or phone.
+                                    We understand your privacy concerns, therefore this site does not share your details
+                                    on the website
+                                    or externaly. You contact the advertiser through messaging pages. When you are
+                                    comfortable and enough
+                                    information from the advertiser, then its your decision to share your personal
+                                    information, such as email or phone.
                                     This site does not reveal your name, phone or email on this website.
                                 </p>
                             </div>
@@ -111,7 +120,7 @@
         </div>
     </main>
     <div class="container">
-    {{ template "footerHTML" . }}
+        {{ template "footerHTML" . }}
     </div>
     <script src="/static/bootstrap.bundle.min.js" type="application/javascript"></script>
 </body>

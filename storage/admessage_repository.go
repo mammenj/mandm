@@ -58,6 +58,19 @@ func (as *AdMessageSqlliteStore) GetMessagesToID(toId uint) ([]models.AdMessages
 	return msg, nil
 }
 
+func (as *AdMessageSqlliteStore) GetMessagesToIDFromID(toId, fromID uint) ([]models.AdMessages, error) {
+	var msg []models.AdMessages
+	log.Println("Get AdMessagess by to_id")
+	//if toId != fromID {
+	result := as.DB.Where("to_user = ? and from_user = ?", toId, fromID).Find(&msg)
+	log.Println("...... Total records msg : ", result.RowsAffected)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	//}
+	return msg, nil
+}
+
 func (as *AdMessageSqlliteStore) GetMessagesToIDGroupByFrom(toId uint) ([]models.AdMessages, error) {
 	var msg []models.AdMessages
 	log.Println("Get GetMessagesToIDGroupByFrom by to_id")

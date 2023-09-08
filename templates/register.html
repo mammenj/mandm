@@ -16,50 +16,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <img src="/static/images/placeads.jpg" alt="" class="img-fluid" />
+                    <img src="/static/images/molay3.jpg" alt="" class="img-fluid" />
                 </div>
-                {{if ne .User.ID 0}}
+                <div class="col-md-9">
+                    <h2 class="mt-2">Register with Minna Minni ©2023</h2>
+                    <p class="mt-3">
+                        Best place to find your match, no hassle of membership or payment, secure, anonymous.
+                    </p>
 
-                <div class="col-md-9">
-                    <div>
-                        <h3 class=" text-center text-bg-dark">Logged User</h3>
-                    </div>
-                    <div class="col-md-9 bg-info-subtle" id="test">
-                        <b>User ID</b>: {{.User.ID }}, <b>Name</b>: {{.User.Name}}, <b>Role</b>: {{.User.Role}}
-                    </div>
-                    <div id="logout" class="btn-info mt-1">
-                        <button hx-post="/logout" type="button" hx-target="#logoutresult"
-                            class="btn btn-primary">Logout</button>
-                    </div>
-                    <div class="col-md-9 bg-info-subtle" id="logoutresult"></div>
+                    
                 </div>
-                {{else}}
-                <div class="col-md-9">
-                    <form hx-post="/login" hx-target="#loginresult" hx-swap="innerHTML" class="was-validated">
-                        <div class="row g-3">
-                            <div>
-                                <h3 class=" text-center text-bg-dark">Login</h3>
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="Email" id="email"
-                                    placeholder="Enter your email." required>
-                                <div class="invalid-feedback">Please enter your email.</div>
-                            </div>
-                            <div class="col-sm-4 form-group">
-                                <label for="education" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password1" name="Password"
-                                    placeholder="Enter a password" required>
-                                <div class="invalid-feedback">Please enter password.</div>
-                            </div>
-                            <div class="col-sm-4 form-group ">
-                                <button class="btn btn-primary float-right">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="col-md-9 bg-danger text-bg-danger" id="loginresult"></div>
-                </div>
-                {{end}}
             </div>
             <div class="container my-3 bg-dark-subtle">
                 <form hx-post="/users" hx-target="this" hx-swap="innerHTML" class="was-validated">

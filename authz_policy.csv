@@ -6,12 +6,13 @@ p, anonymous, /ads*, *
 p, anonymous, /header*, *
 p, anonymous, /footer*, *
 p, anonymous, /index*, *
-p, anonymous, /*, *
+p, anonymous, /, *
 p, anonymous, /contact*, *
 p, anonymous, /tnc*, *
 p, anonymous, /menu*, *
 p, anonymous, /about*, *
 p, anonymous, /validate*, *
+p, anonymous, /register*, *
 
 
 p, user, /login*, *

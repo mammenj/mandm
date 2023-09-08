@@ -36,7 +36,7 @@
             </div>
             {{if ne .User.Name ""}}
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="card-deck">
 
                         {{ range .AdMap.Ads }}
@@ -44,10 +44,14 @@
 
                         <div class="card">
                             <div class="card-body">
-
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-0">{{.Section}} - {{.Religiion}}, {{.Cast}} </h5>
+                                    <button type="button" class="btn btn-sm btn-primary" hx-target="#messagebox"
+                                        hx-get="/users/message" hx-vals='{"ID": "{{.ID}}","ad":"{{.Description}}"}'>
+                                        Message
+                                    </button>
                                 </div>
+
                                 <p class="mb-0">{{.Preferences}}</p>
                                 <p class="mb-0">{{.Description}} </p>
                                 <p class="mb-0"><b>Job: </b>{{.JobType}} {{.Job }} </p>
@@ -60,6 +64,7 @@
 
                     </div>
                 </div>
+                <div class="col-md-3 mx-1" id="messagebox"></div>
             </div>
             {{end}}
             <!-- </div> -->

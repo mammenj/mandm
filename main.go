@@ -49,7 +49,10 @@ var placeAdsTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/placead.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
 var loginTemplate *template.Template = template.Must(template.ParseFiles(
-	"templates/loginregister.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+	"templates/login.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+
+var registerTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/register.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
 
 var tncTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/tnc.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
@@ -83,11 +86,13 @@ type pageDataMessages struct {
 	AdMessagesMap map[string][]models.AdMessages
 }
 
-type pageDataMessagesGroup struct {
-	User          models.User
-	AdMap         map[string][]models.Ad
-	AdMessagesMap map[string][]models.AdMessagesGroup
-}
+// type pageDataMessagesGroup struct {
+// 	User          models.User
+// 	AdMap         map[string][]models.Ad
+// 	AdMessagesMap map[string][]models.AdMessagesGroup
+// }
+
+var user *models.User
 
 func main() {
 
@@ -112,11 +117,14 @@ func main() {
 	auth := security.NewJwtAuth(e)
 
 	r.Use(security.NewJwtAuthorizer(e))
+	r.Use(func(c *gin.Context) {
+		user = auth.GetLoggedInUser(c)
+	})
 
 	r.GET("/", func(c *gin.Context) {
 		var page pageData
 
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 
 			page = pageData{*user, nil}
@@ -128,7 +136,7 @@ func main() {
 
 	r.GET("/contact.html", func(c *gin.Context) {
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -137,9 +145,11 @@ func main() {
 
 	r.GET("/messages.html", func(c *gin.Context) {
 		var page pageDataMessages
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In my ads, user is not nil.....")
+			fromID := c.Query("fromuser")
+			fromUint, _ := strconv.Atoi(fromID)
 			adMsgStore := storage.NewSqliteAdMessageStore()
 			adStore := storage.NewSqliteAdsStore()
 			ads, err := adStore.GetMyAds(user.ID)
@@ -148,20 +158,26 @@ func main() {
 				log.Println("Error in getting Ads, ", err.Error())
 			}
 			admap := map[string][]models.Ad{"Ads": ads}
-			msgs, err := adMsgStore.GetMessagesToID(user.ID)
+			//msgs, err := adMsgStore.GetMessagesToID(user.ID)
+			msgs, err := adMsgStore.GetMessagesToIDFromID(user.ID, uint(fromUint))
+
 			if err != nil {
 				log.Println("Error in getting messages, ", err.Error())
 			}
 			admsgmap := map[string][]models.AdMessages{"AdMessages": msgs}
 			log.Println("Ad message map:: ", admsgmap)
 			page = pageDataMessages{*user, admap, admsgmap}
+			messageTemplate.Execute(c.Writer, page)
+		} else {
+			c.Header("HX-Location", "/")
+			c.String(http.StatusOK, "")
 		}
-		messageTemplate.Execute(c.Writer, page)
+
 	})
 
 	r.GET("/activate.html", func(c *gin.Context) {
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -170,7 +186,7 @@ func main() {
 
 	r.GET("/myads.html", func(c *gin.Context) {
 		var page pageDataMessages
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In my ads, user is not nil.....")
 			adMsgStore := storage.NewSqliteAdMessageStore()
@@ -195,7 +211,7 @@ func main() {
 
 	r.GET("/aboutus.html", func(c *gin.Context) {
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -214,7 +230,7 @@ func main() {
 		}
 		admap := map[string][]models.Ad{"Ads": ads}
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In groom user !=null ")
 			page = pageData{*user, admap}
@@ -238,7 +254,7 @@ func main() {
 		}
 		admap := map[string][]models.Ad{"Ads": ads}
 		//brideTemplate.Execute(c.Writer, admap)
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			log.Println("In bride user !=null ")
 			page = pageData{*user, admap}
@@ -251,7 +267,7 @@ func main() {
 
 	r.GET("/ads.html", func(c *gin.Context) {
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -260,7 +276,7 @@ func main() {
 
 	r.GET("/login.html", func(c *gin.Context) {
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -269,9 +285,20 @@ func main() {
 		loginTemplate.Execute(c.Writer, page)
 	})
 
+	r.GET("/register.html", func(c *gin.Context) {
+		var page pageData
+		//user := auth.GetLoggedInUser(c)
+		if user != nil {
+			page = pageData{*user, nil}
+		}
+
+		log.Println("Logged in Page is :::::", page)
+		registerTemplate.Execute(c.Writer, page)
+	})
+
 	r.GET("/tnc.html", func(c *gin.Context) {
 		var page pageData
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		if user != nil {
 			page = pageData{*user, nil}
 		}
@@ -298,7 +325,7 @@ func main() {
 		log.Println("ad-id from send messge ", adIdStr)
 		adDescription := c.Request.FormValue("ad-description")
 		log.Println("ad-description from send messge ", adDescription)
-		user := auth.GetLoggedInUser(c)
+		//user := auth.GetLoggedInUser(c)
 		admsgStore := storage.NewSqliteAdMessageStore()
 		loggedID := user.ID
 		adStore := storage.NewSqliteAdsStore()
