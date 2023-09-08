@@ -15,6 +15,7 @@ p, anonymous, /validate*, *
 p, anonymous, /register*, *
 p, anonymous, /grooms*, *
 p, anonymous, /brides*, *
+p, anonymous, /messages, POST
 
 
 p, user, /login*, *
