@@ -86,6 +86,13 @@ type pageDataMessages struct {
 	AdMessagesMap map[string][]models.AdMessages
 }
 
+type pageDataMessagesToUser struct {
+	User          models.User
+	ToUser        string
+	AdMap         map[string][]models.Ad
+	AdMessagesMap map[string][]models.AdMessages
+}
+
 // type pageDataMessagesGroup struct {
 // 	User          models.User
 // 	AdMap         map[string][]models.Ad
@@ -140,7 +147,7 @@ func main() {
 	})
 
 	r.GET("/messages.html", func(c *gin.Context) {
-		var page pageDataMessages
+		var page pageDataMessagesToUser
 		if user != nil {
 			log.Println("In my ads, user is not nil.....")
 			fromID := c.Query("fromuser")
@@ -160,7 +167,7 @@ func main() {
 			}
 			admsgmap := map[string][]models.AdMessages{"AdMessages": msgs}
 			log.Println("Ad message map:: ", admsgmap)
-			page = pageDataMessages{*user, admap, admsgmap}
+			page = pageDataMessagesToUser{*user, fromID, admap, admsgmap}
 			messageTemplate.Execute(c.Writer, page)
 		} else {
 			c.Header("HX-Location", "/")
@@ -299,7 +306,13 @@ func main() {
 	r.PATCH("/users/activate", userHandler.ActivateUser)
 	r.POST("/users/sendmessage", func(c *gin.Context) {
 		message := c.Request.FormValue("Message")
+		toUser := c.Request.FormValue("toUser")
+		toUserInt, err := strconv.Atoi(toUser)
+		if err != nil {
+			log.Println("To user:: ", toUser)
+		}
 		log.Println("Body from send messge ", message)
+		log.Println("Body from send messge toUser ", toUser)
 		adid := c.Request.FormValue("ad-id")
 		// hack to remove [] brackets
 		adIdStr := regexp.MustCompile(`[^a-zA-Z0-9 ]+`).ReplaceAllString(adid, "")
@@ -316,12 +329,21 @@ func main() {
 		admsgStore := storage.NewSqliteAdMessageStore()
 		loggedID := user.ID
 		adStore := storage.NewSqliteAdsStore()
-		toID, err := adStore.GetUserIDbyAdId(adIdStr)
+		var toID uint
+		if toUser == "" {
+			toID, err = adStore.GetUserIDbyAdId(adIdStr)
+		} else {
+			toID = uint(toUserInt)
+		}
+
+		log.Println("Add message from sent message;: adIdStr ", adIdStr)
 		if err != nil {
 			c.String(http.StatusOK, "<div class=\"mx-1 bg-danger text-bg-danger\"> Invalid AD!</div>")
 			return
 		}
 		admessages := &models.AdMessages{FromUser: loggedID, ToUser: toID, AdID: adIdStr, Message: message}
+		log.Println("Add message from sent message;: loggedID ", loggedID)
+		log.Println("Add message from sent message;: toID ", toID)
 		_, err = admsgStore.Create(admessages)
 		if err != nil {
 			c.String(http.StatusOK, err.Error())

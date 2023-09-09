@@ -60,14 +60,13 @@ func (as *AdMessageSqlliteStore) GetMessagesToID(toId uint) ([]models.AdMessages
 
 func (as *AdMessageSqlliteStore) GetMessagesToIDFromID(toId, fromID uint) ([]models.AdMessages, error) {
 	var msg []models.AdMessages
-	log.Println("Get AdMessagess by to_id")
-	//if toId != fromID {
-	result := as.DB.Where("to_user = ? and from_user = ?", toId, fromID).Find(&msg)
-	log.Println("...... Total records msg : ", result.RowsAffected)
+	log.Println("Get GetMessagesToIDFromID by from and to")
+	result := as.DB.Where("(to_user = ? and from_user = ?) or (from_user = ? and to_user = ?)", toId, fromID, toId, fromID).Find(&msg)
+	log.Println("...... Total records GetMessagesToIDFromID : ", result.RowsAffected)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	//}
+
 	return msg, nil
 }
 
@@ -75,19 +74,22 @@ func (as *AdMessageSqlliteStore) GetMessagesToIDGroupByFrom(toId uint) ([]models
 	var msg []models.AdMessages
 	log.Println("Get GetMessagesToIDGroupByFrom by to_id")
 
-	/// SELECT
-	// 	albumid,
-	// 	COUNT(trackid)
-	// FROM
-	// 	tracks
-	// GROUP BY
-	// 	albumid;
-
-	result := as.DB.Raw("SELECT * FROM ad_messages WHERE to_user = ? and from_user != to_user GROUP BY from_user", toId).Scan(&msg)
-	//result := as.DB.Where("to_user = ?", toId).Group("from_user").Find(&msg)
+	result := as.DB.Raw("SELECT * FROM ad_messages WHERE to_user = ? and from_user != to_user or from_user = ? GROUP BY from_user", toId, toId).Scan(&msg)
 	if result.Error != nil {
 		return nil, result.Error
 	}
 	log.Println("...... Total GetMessagesToIDGroupByFrom records msg : ", result.RowsAffected)
+	return msg, nil
+}
+
+func (as *AdMessageSqlliteStore) GetMessagesToIDandFrom(toId uint) ([]models.AdMessages, error) {
+	var msg []models.AdMessages
+	log.Println("Get GetMessagesToIDandFrom by to_id")
+
+	result := as.DB.Raw("SELECT * FROM ad_messages WHERE to_user = ? and from_user != to_user or from_user = ? or from_user = ?  GROUP BY from_user", toId, toId, toId).Scan(&msg)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	log.Println("...... Total GetMessagesToIDandFrom records msg : ", result.RowsAffected)
 	return msg, nil
 }

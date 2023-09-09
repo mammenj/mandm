@@ -37,10 +37,8 @@
             <div class="row my-5">
                 <section style="background-color: #eee;">
                     <div class="container py-2">
-
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-4 col-lg-6 col-xl-4">
-
                                 <div class="card" id="chat1" style="border-radius: 15px;">
                                     <div class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
                                         style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
@@ -48,26 +46,33 @@
                                         <p class="mb-0 fw-bold">Messages</p>
                                         <i class="fas fa-times"></i>
                                     </div>
-                                    {{ range .AdMessagesMap.AdMessages }}
-                                    {{ block "admsgs-list-element" .}}
                                     <div class="card-body">
-
+                                        {{ range .AdMessagesMap.AdMessages }}
+                                        {{ block "admsgs-list-element" .}}
                                         <div class="d-flex flex-row justify-content-start mb-4">
-                                            <label class="form-label">User: {{.FromUser }}</label>
+                                            <label class="form-label small mb-0">User: {{.FromUser }}</label>
                                             <div class="p-3 ms-3"
                                                 style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
                                                 <p class="small mb-0">{{.Message}}
-                                                    below.</p>
+                                                </p>
                                             </div>
                                         </div>
                                         {{end}}
                                         {{end}}
-
-                                        <div class="form-outline">
-                                            <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
-                                            <label class="form-label" for="textAreaExample">Type your message</label>
-                                        </div>
-
+                                        <form hx-post="/users/sendmessage" hx-target="this" class="was-validated">
+                                            <div class="form-outline">
+                                                <input type="hidden" id="to-id" name="toUser" value='{{.ToUser}}'>
+                                                <textarea class="form-control" id="message" name="Message" rows="4"
+                                                    required></textarea>
+                                            </div>
+                                            <div>
+                                                <div class="form-group mb-2 my-2">
+                                                    <button class="btn btn-primary btn-sm"
+                                                        hx-indicator="#loading3">Send</button>
+                                                    <img id="loading3" class="htmx-indicator"
+                                                        src="/static/images/load.gif" />
+                                                </div>
+                                        </form>
                                     </div>
                                 </div>
 
