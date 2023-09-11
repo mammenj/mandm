@@ -16,6 +16,8 @@ p, anonymous, /register*, *
 p, anonymous, /grooms*, *
 p, anonymous, /brides*, *
 p, anonymous, /messages, POST
+p, anonymous, /fav*, *
+p, anonymous, /static*, *
 
 
 p, user, /login*, *
@@ -35,7 +37,9 @@ p, user, /about*, *
 p, user, /myad*, *
 p, user, /validate*, *
 p, user, /messages*, *
-
+p, user, /inbox*, *
+p, user, /fav*, *
+p, user, /static*, *
 
 p, broker, /login*, *
 p, broker, /user*, *
@@ -54,3 +58,6 @@ p, broker, /myad*, *
 p, broker, /logout*, *
 p, broker, /validate*, *
 p, broker, /messages*, *
+p, broker, /inbox*, *
+p, broker, /fav*, *
+p, broker, /static*, *

@@ -75,6 +75,9 @@ var chatTemplate *template.Template = template.Must(template.ParseFiles(
 var validEmailTemplate *template.Template = template.Must(template.ParseFiles(
 	"templates/validemail.html"))
 
+var inboxTemplate *template.Template = template.Must(template.ParseFiles(
+	"templates/inbox.html", "templates/menu.html", "templates/header.html", "templates/footer.html"))
+
 type pageData struct {
 	User  models.User
 	AdMap map[string][]models.Ad
@@ -205,6 +208,29 @@ func main() {
 			page = pageDataMessages{*user, admap, admsgmap}
 		}
 		myAdsTemplate.Execute(c.Writer, page)
+	})
+
+	r.GET("/inbox.html", func(c *gin.Context) {
+		var page pageDataMessages
+		if user != nil {
+			log.Println("In my ads, user is not nil.....")
+			adMsgStore := storage.NewSqliteAdMessageStore()
+			adStore := storage.NewSqliteAdsStore()
+			ads, err := adStore.GetMyAds(user.ID)
+
+			if err != nil {
+				log.Println("Error in getting Ads, ", err.Error())
+			}
+			admap := map[string][]models.Ad{"Ads": ads}
+			msgs, err := adMsgStore.GetMessagesToIDGroupByFrom(user.ID)
+			if err != nil {
+				log.Println("Error in getting messages, ", err.Error())
+			}
+			admsgmap := map[string][]models.AdMessages{"AdMessages": msgs}
+			log.Println("Ad message map:: ", admsgmap)
+			page = pageDataMessages{*user, admap, admsgmap}
+		}
+		inboxTemplate.Execute(c.Writer, page)
 	})
 
 	r.GET("/aboutus.html", func(c *gin.Context) {
