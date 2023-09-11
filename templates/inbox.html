@@ -40,7 +40,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body pb-0">
-                            <h2 class="pb-2">My Ad Messages</h2>
+                            <h3 class="pb-2">My Ad Messages</h3>
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-link active" id="inbox-tab" data-bs-toggle="tab" href="#inbox"
@@ -276,34 +276,36 @@
                 </div>
             </div>
             <div class="row my-5">
-                <div class="bg-dark-subtle text-bg-primarys">
-                    My Ads
-
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body pb-0">
+                            <h3 class="pb-2">My Ads</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ad #</th>
+                                        <th scope="col">Ad Description</th>
+                                        <th scope="col">Date Posted</th>
+                                        <th scope="col">Section</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ range .AdMap.Ads }}
+                                    {{ block "ads-list-element" .}}
+                                    <tr>
+                                        <th scope="row">{{.ID}}</th>
+                                        <td>{{.Description}}</td>
+                                        <td>{{.UpdatedAt}}</td>
+                                        <td>{{.Section}}</td>
+                                    </tr>
+                                    {{end}}
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Ad #</th>
-                            <th scope="col">Ad Description</th>
-                            <th scope="col">Date Posted</th>
-                            <th scope="col">Section</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{ range .AdMap.Ads }}
-                        {{ block "ads-list-element" .}}
-                        <tr>
-                            <th scope="row">{{.ID}}</th>
-                            <td>{{.Description}}</td>
-                            <td>{{.UpdatedAt}}</td>
-                            <td>{{.Section}}</td>
-                        </tr>
-                        {{end}}
-                        {{end}}
-                    </tbody>
-                </table>
             </div>
-        </div>
     </main>
     <div class="container">
         {{ template "footerHTML" . }}
