@@ -18,6 +18,7 @@ p, anonymous, /brides*, *
 p, anonymous, /messages, POST
 p, anonymous, /fav*, *
 p, anonymous, /static*, *
+p, anonymous, /activate*, *
 
 
 p, user, /login*, *
